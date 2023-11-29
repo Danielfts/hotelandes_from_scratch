@@ -25,6 +25,8 @@ public class HabitacionEntity {
     private String numero;
     private TipoHabitacionEntity tipoHabitacion;
 
+    public HabitacionEntity(){}
+
     public HabitacionEntity( String numero , TipoHabitacionEntity tipoHabitacion) {
         
         this.numero = numero;
