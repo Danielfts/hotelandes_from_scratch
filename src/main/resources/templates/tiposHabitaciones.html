@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Tipos de habitacion</title>
 </head>
 
 <body>
@@ -19,6 +19,44 @@
         <h1>Hotelandes</h1>
       </a>  
       <small>Tipos de habitaciones</small>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <h2 class="p-4">Listado</h2>
+          <table class="table table-hover table-bordered m-4" style="width: 90%;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Costo</th>
+                    <th>Capacidad</th>
+                    <th>Descripcion</th>
+                </tr>
+            </thead>
+            <th:block th:each="tipo : ${tiposHabitaciones}">
+                <tr>
+                    <td th:text="${tipo.tipo}"></td>
+                    <td th:text="${tipo.costo}"></td>
+                    <td th:text="${tipo.capacidad}"></td>
+                    <td th:text="${tipo.descripcion}"></td>
+                    
+                    <td>
+                        <!-- <a th:href="@{bares/{id}/edit(id=${bar.id})}">Editar</a> -->
+                        <!-- <a th:href="@{habitaciones/{id}/delete(id=${hab.id})}"
+                            onclick="return confirm('¿Estás seguro de borrar este bar?')">Borrar</a> -->
+                    </td>
+                </tr>
+            </th:block>
+
+        </table>
+        </div>
+        <div class="col pt-5">
+          <h2>Controles</h2>
+          <a th:href="@{tipos-habitaciones/delete}"><button class="btn btn-danger m-3">Eliminar Todo</button></a>
+          <a th:href="@{tipos-habitaciones/populate}"><button class="btn btn-success m-3">Poblar datos</button></a>
+        </div>
+      </div>
     </div>
     
   
