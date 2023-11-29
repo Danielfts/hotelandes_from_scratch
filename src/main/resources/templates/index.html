@@ -15,7 +15,9 @@
 
 <body>
     <div class="container-fluid p-4 text-bg-dark">
+      <a  href="/" style="text-decoration: none;">
         <h1>Hotelandes</h1>
+      </a>  
     </div>
     
     <div class="container-fluid">
@@ -28,9 +30,11 @@
                     <hr>
                     <ul class="list-unstyled ps-0 overflow-y-auto" style="max-height: 30rem;">
                       <li class="mb-1">
+                        <a th:href="@{tiposHabitaciones}">
                           <button class="btn btn-toggle align-items-center rounded" >
                               TipoHabitacion
                             </button>                       
+                        </a>
                         </li>
                         <li class="mb-1">
                           <a th:href="@{habitaciones}">
@@ -40,29 +44,39 @@
                           </a>
                       </li>
                       <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded" >
-                          Servicios
-                        </button>                       
+                        <a th:href="@{servicios}">
+                          <button class="btn btn-toggle align-items-center rounded" >
+                            Servicios
+                          </button>                       
+                        </a>
                       </li>
                       <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded" >
-                          Reservas
-                        </button>                       
+                        <a th:href="@{reservas}">
+                          <button class="btn btn-toggle align-items-center rounded" >
+                            Reservas
+                          </button>                       
+                        </a>
                       </li>
                       <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded" >
-                          Check in
-                        </button>                       
+                        <a th:href="@{checkin}">
+                          <button class="btn btn-toggle align-items-center rounded" >
+                            Check in
+                          </button>                       
+                        </a>
                       </li>
                       <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded" >
-                          Check Out
-                        </button>                       
+                        <a th:href="@{checkout}">
+                          <button class="btn btn-toggle align-items-center rounded" >
+                            Check Out
+                          </button>                       
+                        </a>
                       </li>
                       <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded" >
-                          Consumo
-                        </button>                       
+                        <a th:href="@{consumos}">
+                          <button class="btn btn-toggle align-items-center rounded" >
+                            Consumo
+                          </button>                       
+                        </a>
                       </li>
                       
                       <li class="border-top my-3"></li>
