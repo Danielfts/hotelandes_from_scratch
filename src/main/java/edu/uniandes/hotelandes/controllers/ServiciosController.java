@@ -21,7 +21,7 @@ public class ServiciosController {
 
     @GetMapping("/delete")
     public String deleteAll(){
-
+        this.servicioService.deleteAll();
         return "redirect:/servicios";
     }
 

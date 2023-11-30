@@ -30,6 +30,7 @@ public class ServicioService {
     }
 
     public void deleteAll() {
+        this.servicioRepository.deleteAll();
     }
 
     public void get() {
