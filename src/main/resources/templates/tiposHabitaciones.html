@@ -24,7 +24,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <h2 class="p-4">Listado</h2>
+          <h2 class="p-4">Listado de tipos de habitación</h2>
           <table class="table table-hover table-bordered m-4" style="width: 90%;">
             <thead class="thead-dark">
                 <tr>
@@ -42,9 +42,9 @@
                     <td th:text="${tipo.descripcion}"></td>
                     
                     <td>
-                        <!-- <a th:href="@{bares/{id}/edit(id=${bar.id})}">Editar</a> -->
-                        <!-- <a th:href="@{habitaciones/{id}/delete(id=${hab.id})}"
-                            onclick="return confirm('¿Estás seguro de borrar este bar?')">Borrar</a> -->
+                        <a class="btn btn-info px-1 py-0" th:href="@{tipos-habitaciones/{id}/edit(id=${tipo.habitacionId})}">Editar</a>
+                        <a class="btn btn-danger px-1 py-0" th:href="@{tipos-habitaciones/{id}/delete(id=${tipo.habitacionId})}"
+                            onclick="return confirm('¿Estás seguro de borrar este tipo de habitación? Al ser un documento embebido también se eliminará su habitación asignada')">Borrar</a>
                     </td>
                 </tr>
             </th:block>
@@ -57,6 +57,8 @@
           <h2>Controles</h2>
           <a th:href="@{tipos-habitaciones/delete}"><button class="btn btn-danger m-3">Eliminar Todo</button></a>
           <a th:href="@{tipos-habitaciones/populate}"><button class="btn btn-success m-3">Poblar datos</button></a>
+          <a th:href="@{tipos-habitaciones/new}"><button class="btn btn-warning m-3">Crear nuevo</button></a>
+          
         </div>
       </div>
     </div>

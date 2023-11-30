@@ -24,20 +24,71 @@ public class HabitacionService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	public void insertDocument(HabitacionEntity document) {
+	public boolean validateDocument(HabitacionEntity document) throws IllegalArgumentException{
+		String error;
 		if (document.getTipoHabitacion() == null){
 			document.setTipoHabitacion(new TipoHabitacionEntity(
 				100.0, TipoHabitacion.SENCILLA.capacidad, TipoHabitacion.SENCILLA, "Una habitacion básica pero bonita"
 			));
 		}
+		if (document.getNumero() == null || document.getNumero().isEmpty()) {
+			error = ErrorMessages.EMPTYFIELD.message;
+			log.error(error);
+			throw new IllegalArgumentException(error);
+			
+		}
+		if (Integer.parseInt(document.getNumero()) < 0 || document.getTipoHabitacion().getCapacidad() < 0  || document.getTipoHabitacion().getCosto() < 0)
+		{
+			error = ErrorMessages.INVALIDFIELD.message;
+			log.error(error);
+			throw new IllegalArgumentException(error);
+			
+		}
+		return true;
+	}
+
+	public void insertDocument(HabitacionEntity document) {
+		
+		boolean isvalid = validateDocument(document);
+		if (isvalid){
+			if (document.getTipoHabitacion() == null){
+				document.setTipoHabitacion(new TipoHabitacionEntity(
+					100.0, TipoHabitacion.SENCILLA.capacidad, TipoHabitacion.SENCILLA, "Una habitacion básica pero bonita"
+				));
+			}
+			try {
+				mongoTemplate.insert(document);
+			} catch (DuplicateKeyException e) {
+				log.error(ErrorMessages.DUPLICATEKEY.message);
+			}
+			catch (Exception e) {
+				log.error("Error inserting document", e.getClass().getCanonicalName());
+			}
+		}
+	}
+
+	public HabitacionEntity saveDocument(HabitacionEntity document)throws DuplicateKeyException,Exception{
 		try {
-			mongoTemplate.insert(document);
-		} catch (DuplicateKeyException e) {
-			log.error(ErrorMessages.DUPLICATEKEY.message);
+			boolean isvalid = validateDocument(document);
+			if (document.getTipoHabitacion() == null){
+				document.setTipoHabitacion(new TipoHabitacionEntity(
+					100.0, TipoHabitacion.SENCILLA.capacidad, TipoHabitacion.SENCILLA, "Una habitacion básica pero bonita"
+				));
+			}
+			try {
+				return mongoTemplate.save(document);
+			} catch (DuplicateKeyException e) {
+				log.error(ErrorMessages.DUPLICATEKEY.message);
+				throw e;
+			}
+			catch (Exception e) {
+				log.error("Error inserting document", e.getClass().getCanonicalName());
+				throw e;
+			}
+		} catch (Exception e) {
+			throw e;
 		}
-		catch (Exception e) {
-			log.error("Error inserting document", e.getClass().getCanonicalName());
-		}
+		
 	}
 
 	public List<TipoHabitacionEntity> getHabitacionTypes() {
@@ -48,7 +99,9 @@ public class HabitacionService {
 				"habitaciones");
 		ArrayList<TipoHabitacionEntity> tiposHabitacion = new ArrayList<TipoHabitacionEntity>();
 		for(HabitacionEntity habitacion : result) {
-			tiposHabitacion.add(habitacion.getTipoHabitacion());
+			TipoHabitacionEntity tipoHabitacion = habitacion.getTipoHabitacion();
+			tipoHabitacion.setHabitacionId(habitacion.getId());
+			tiposHabitacion.add(tipoHabitacion);
 		}
 		return tiposHabitacion;
 	}

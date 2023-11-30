@@ -20,7 +20,9 @@ import edu.uniandes.hotelandes.entities.TipoHabitacionEntity;
 import edu.uniandes.hotelandes.repositories.HabitacionRepository;
 import edu.uniandes.hotelandes.services.HabitacionService;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/habitaciones")
 public class HabitacionController {
@@ -58,7 +60,12 @@ public class HabitacionController {
         newTipo.setTipo(TipoHabitacion.valueOf(data.getSelectedOption()));
         newHab.setTipoHabitacion(newTipo);
         System.out.println(newHab);
-        habitacionService.insertDocument(newHab);
+        
+        try {
+            habitacionService.insertDocument(newHab);
+        } catch (Exception e) {
+            log.error("Se ha producido un error:", e.getMessage());
+        }
         return "redirect:/habitaciones";
     }
 
@@ -82,8 +89,13 @@ public class HabitacionController {
             @ModelAttribute TipoHabitacionEntity newTipo, @ModelAttribute myData data) {
         newTipo.setTipo(TipoHabitacion.valueOf(data.getSelectedOption()));
         newHab.setTipoHabitacion(newTipo);
-        System.out.println(newHab);
-        habitacionRepository.save(newHab);
+
+        try {
+            HabitacionEntity result = habitacionService.saveDocument(newHab);
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         return "redirect:/habitaciones";
     }

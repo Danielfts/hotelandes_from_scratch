@@ -1,5 +1,7 @@
 package edu.uniandes.hotelandes.entities;
 
+import org.springframework.data.annotation.Transient;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -11,6 +13,9 @@ public class TipoHabitacionEntity {
     private int capacidad;
     private TipoHabitacion tipo;
     private String descripcion;
+
+    @Transient
+    private String habitacionId;
 
     public TipoHabitacionEntity(){}
 
