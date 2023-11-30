@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import edu.uniandes.hotelandes.controllers.HabitacionController;
 import edu.uniandes.hotelandes.entities.ClienteEntity;
+import edu.uniandes.hotelandes.entities.ConsumoEntity;
 import edu.uniandes.hotelandes.entities.CuentaEntity;
 import edu.uniandes.hotelandes.entities.HabitacionEntity;
+import edu.uniandes.hotelandes.repositories.ConsumoRepository;
 import edu.uniandes.hotelandes.repositories.HabitacionRepository;
 import java.util.Calendar;
 
@@ -25,20 +27,25 @@ public class ClienteService {
     @Autowired
     private HabitacionRepository habitacionRepository;
 
+    @Autowired
+    private ConsumoRepository consumoRepository;
+
     public void insertDocumentWithoutId(ClienteEntity document) {
         mongoTemplate.insert(document);
     }
 
     public void insertDummies(){
         List<HabitacionEntity> habitaciones = habitacionRepository.findAll();
+        List<ConsumoEntity> consumos = consumoRepository.findAll();
+
 
         ArrayList<CuentaEntity> cuentas = new ArrayList<CuentaEntity>(
             Arrays.asList(
-                new CuentaEntity( habitaciones.get(0), null, null),
-                new CuentaEntity( habitaciones.get(1), null, null),
-                new CuentaEntity( habitaciones.get(2), null, null),
-                new CuentaEntity( habitaciones.get(3), null, null),
-                new CuentaEntity( habitaciones.get(4), null, null)
+                new CuentaEntity( habitaciones.get(0).getId(), null, null,consumos),
+                new CuentaEntity( habitaciones.get(1).getId(), null, null, consumos),
+                new CuentaEntity( habitaciones.get(2).getId(), null, null, consumos),
+                new CuentaEntity( habitaciones.get(3).getId(), null, null, consumos),
+                new CuentaEntity( habitaciones.get(4).getId(), null, null, consumos)
             )
         );
 

@@ -12,8 +12,9 @@ import lombok.ToString;
 @ToString
 @Data
 public class ClienteEntity {
-
+    @Id
     private String id;
+
     private String nombre;
     private List<CuentaEntity> cuentas;
 
