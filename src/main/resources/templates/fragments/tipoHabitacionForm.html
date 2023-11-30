@@ -12,32 +12,32 @@
 <body>
     <div th:fragment="tipoHabitacionForm(titulo)" class="container-fluid p-0 m-0 ">
         <h2 class="text-left" th:text="${titulo}"></h2>
-        <small th:text="'Id de habitación: '+${newHab.id}"></small>
+        <small th:text="'Id de habitación: '+${habId}"></small>
         <br>
         <form>
-            <label class="col-form-label">Número:</label>
-            <input class="form-control" type="number" id="numero" name="numero" required th:value="${newHab.numero}" />
+            
             <br>
             <label class="col-form-label">Tipo:</label>
-            <select class="form-select" id="selectedOption" name="selectedOption" th:field="*{data.selectedOption}">
-                <option selected th:value="${selectedOption}" th:text="${selectedOption}" ></option>
-                <option th:each="tipo : ${tiposDisponibles}" id="tipo" th:value="${tipo}" th:text="${tipo}"></option>
-                
-                
+            <select class="form-select" id="selectedOption" name="selectedOption" th:field="*{currentTipo.selectedOption}">
+                <option selected th:value="${selectedOption}" th:text="${selectedOption}"></option>
+                <option th:each="tipoEnum : ${tiposDisponibles}" id="tipoEnum" th:value="${tipoEnum}" th:text="${tipoEnum}"></option>
+
             </select>
             <br>
             <label class="col-form-label">Costo:</label>
-            <input class="form-control" type="number" id="costo" name="costo" required th:value="${newTipo.costo}" />
+            <input class="form-control" type="number" id="costo" name="costo" required th:value="${tipo.costo}" />
             <br>
             <label class="col-form-label">Capacidad:</label>
-            <input class="form-control" type="number" id="capacidad" name="capacidad" required th:value="${newTipo.capacidad}" />
+            <input class="form-control" type="number" id="capacidad" name="capacidad" required
+                th:value="${tipo.capacidad}" />
             <br>
             <label class="col-form-label">Descripcion:</label>
-            <textarea class="form-control" type="text" id="descripcion" name="descripcion" required th:value="${newTipo.descripcion}" th:text="${newTipo.descripcion}"></textarea>
+            <textarea class="form-control" type="text" id="descripcion" name="descripcion" required
+                th:value="${tipo.descripcion}" th:text="${tipo.descripcion}"></textarea>
             <br>
             <div class="text-center">
                 <input type="submit" value="Guardar" class="btn btn-primary">
-                <a th:href="@{/habitaciones}" class="btn btn-primary">Cancelar</a>
+                <a th:href="@{/tipos-habitaciones}" class="btn btn-primary">Cancelar</a>
             </div>
         </form>
     </div>

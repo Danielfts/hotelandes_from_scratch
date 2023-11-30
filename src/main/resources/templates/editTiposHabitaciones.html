@@ -26,9 +26,9 @@
         <div class="row justify-content-center">
             <div class="col" style="max-width: 70%;">
                 <form th:action="@{'/tipos-habitaciones/' + ${id} + '/edit/save'}" method="post">
-                    <!-- <div
-                        th:replace="~{fragments/habitacionForm :: habitacionForm(titulo='Editar Habitacion', newHab=${hab}, data=${data}, newTipo=${tipo})}">
-                    </div> -->
+                    <div
+                        th:replace="~{fragments/tipoHabitacionForm:: tipoHabitacionForm(titulo='Editar Tipo de habitación', habId=${habId}, currentTipo=${currentTipo}, tipo=${tipo}, tiposDisponibles=${tiposDisponibles})}">
+                    </div>
                 </form>
             </div>
         </div>
