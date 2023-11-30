@@ -12,6 +12,8 @@ public class TipoHabitacionEntity {
     private TipoHabitacion tipo;
     private String descripcion;
 
+    public TipoHabitacionEntity(){}
+
     public TipoHabitacionEntity(Double costo, int capacidad, TipoHabitacion tipo, String descripcion) {
         this.costo = costo;
         this.capacidad = capacidad;
