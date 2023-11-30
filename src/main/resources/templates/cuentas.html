@@ -28,13 +28,18 @@
                             <th>Habitacion</th>
                             <th>CheckIn</th>
                             <th>CheckOut</th>
+                            <th>Conusmos</th>
                         </tr>
                     </thead>
                     <th:block th:each="cuen : ${cuentas}">
                         <tr>
-                            <td th:text="${cuen.habitacion.numero}"></td>
+                            <td th:text="${cuen.idHabitacion}"></td>
                             <td th:text="${cuen.checkIn}"></td>
                             <td th:text="${cuen.checkOut}"></td>
+                            <td>
+                                <a th:href="@{clientes}" class="btn btn-primary">Consumos
+                                </a>
+                            </td>
                         </tr>
                     </th:block>
                 </table>

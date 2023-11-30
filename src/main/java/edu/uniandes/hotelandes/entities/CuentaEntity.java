@@ -1,6 +1,6 @@
 package edu.uniandes.hotelandes.entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -13,15 +13,17 @@ import lombok.ToString;
 @Data
 public class CuentaEntity {
 
-    private HabitacionEntity habitacion;
+    private String idHabitacion;
     private List<Date> checkIn;
     private List<Date> checkOut;
+    private List<ConsumoEntity> consumos;
 
-    public CuentaEntity( HabitacionEntity habitacion , List<Date> checkIn , List<Date> checkOut) {
+    public CuentaEntity( String idHabitacion , List<Date> checkIn , List<Date> checkOut, List<ConsumoEntity> consumos) {
         
-        this.habitacion = habitacion;
+        this.idHabitacion = idHabitacion;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.consumos = consumos;
     }
     
 }
