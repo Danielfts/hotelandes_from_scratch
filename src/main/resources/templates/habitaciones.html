@@ -44,22 +44,22 @@
               <td th:text="${hab.tipoHabitacion.capacidad}"></td>
 
               <td>
-                <!-- <a th:href="@{bares/{id}/edit(id=${bar.id})}">Editar</a> -->
-                <a th:href="@{habitaciones/{id}/delete(id=${hab.id})}"
-                  onclick="return confirm('¿Estás seguro de borrar este bar?')">Borrar</a>
+                <a class="btn btn-info px-1 py-0" th:href="@{habitaciones/{id}/edit(id=${hab.id})}">Editar</a>
+                <a class="btn btn-danger px-1 py-0" th:href="@{habitaciones/{id}/delete(id=${hab.id})}"
+                  onclick="return confirm('¿Estás seguro de borrar esta habitacion?')">Borrar</a>
               </td>
             </tr>
           </th:block>
 
         </table>
       </div>
-      <div class="col pt-5">
+      <div class="col py-5">
         <h2>Controles</h2>
         <a th:href="@{habitaciones/delete}"><button class="btn btn-danger m-3">Eliminar Todo</button></a>
         <a th:href="@{habitaciones/populate}"><button class="btn btn-success m-3">Poblar datos</button></a>
         <hr>
         <form th:action="@{habitaciones/new/save}" method="post">
-          <div th:replace="~{fragments/habitacionForm :: habitacionForm(titulo='Crear Habitacion')}">
+          <div th:replace="~{fragments/habitacionForm :: habitacionForm(titulo='Añadir habitación')}">
           </div>
         </form>
       </div>

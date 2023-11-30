@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Habitacion Form</title>
 </head>
+
 <body>
     <div th:fragment="habitacionForm(titulo)" class="container-fluid p-0 m-0 ">
         <h2 class="text-left" th:text="${titulo}"></h2>
         <form>
             <label class="col-form-label">Número:</label>
             <input class="form-control" type="number" id="numero" name="numero" required th:value="${newHab.numero}" />
+            <br>
+            <label class="col-form-label">Tipo:</label>
+            <select class="form-select" id="selectedOption" name="selectedOption" th:field="*{data.selectedOption}">
+                <option selected th:value="${selectedOption}" th:text="${selectedOption}" ></option>
+                <option th:each="tipo : ${tiposDisponibles}" id="tipo" th:value="${tipo}" th:text="${tipo}"></option>
+                
+                
+            </select>
+            <br>
+            <label class="col-form-label">Costo:</label>
+            <input class="form-control" type="number" id="costo" name="costo" required th:value="${newTipo.costo}" />
+            <br>
+            <label class="col-form-label">Capacidad:</label>
+            <input class="form-control" type="number" id="capacidad" name="capacidad" required th:value="${newTipo.capacidad}" />
+            <br>
+            <label class="col-form-label">Descripcion:</label>
+            <textarea class="form-control" type="text" id="descripcion" name="descripcion" required th:value="${newTipo.descripcion}" th:text="${newTipo.descripcion}"></textarea>
             <br>
             <div class="text-center">
                 <input type="submit" value="Guardar" class="btn btn-primary">
@@ -22,4 +41,5 @@
     </div>
     <!-- FORMULARIO -->
 </body>
+
 </html>

@@ -20,4 +20,5 @@ public class TipoHabitacionEntity {
         this.tipo = tipo;
         this.descripcion = descripcion;
     }
+    
 }
