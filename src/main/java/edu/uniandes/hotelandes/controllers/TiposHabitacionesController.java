@@ -56,6 +56,13 @@ public class TiposHabitacionesController {
         return "newTipoHabitacion";
     }
 
+    @GetMapping(value = "/new/save")
+    public String saveNewTipoHabitacion(@ModelAttribute String habId,
+    @ModelAttribute TipoHabitacionEntity newTipo, @ModelAttribute myData datal){
+        
+        return "redirect:/tipos-habitaciones";
+    }
+
     @GetMapping(value = "/populate")
     public String populate() {
         this.habitacionService.insertDummies();
