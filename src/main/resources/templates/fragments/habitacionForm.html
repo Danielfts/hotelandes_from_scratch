@@ -12,7 +12,7 @@
 <body>
     <div th:fragment="habitacionForm(titulo)" class="container-fluid p-0 m-0 ">
         <h2 class="text-left" th:text="${titulo}"></h2>
-        <small th:text="'Id de habitación: '+${newHab.id}"></small>
+        <small  th:if="${newHab.id}" th:text="'Id de habitación: '+${newHab.id}"></small>
         <br>
         <form>
             <label class="col-form-label">Número:</label>
