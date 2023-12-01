@@ -32,5 +32,11 @@ public class ServicioEntity {
         this.costo = costo;
         this.descripcion = descripcion;
     }
+    public ServicioEntity(String nombre, double costo, String descripcion, List<Producto> productos) {
+        this.nombre = nombre;
+        this.costo = costo;
+        this.descripcion = descripcion;
+        this.productos = productos;
+    }
     
 }

@@ -2,6 +2,7 @@ package edu.uniandes.hotelandes.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,24 +27,35 @@ public class ServicioService {
     public void update() {
     }
 
-    public void deleteOne() {
+    public void deleteOne(String id) {
+        this.servicioRepository.deleteById(id);
     }
 
     public void deleteAll() {
         this.servicioRepository.deleteAll();
     }
 
-    public void get() {
+    public ServicioEntity getOne(String id) {
+        return this.servicioRepository.findById(id).get();
     }
 
-    public void getAll() {
+    public List<ServicioEntity> getAll() {
+
+        List<ServicioEntity> servicios = this.mongoTemplate.findAll(ServicioEntity.class);
+        return servicios;
     }
 
     public void populate() {
         ArrayList<ServicioEntity> servicios = new ArrayList<ServicioEntity>( );
-
+        ServicioEntity servicioEntity ;
         for (Servicio servicio : Servicio.values()) {
-            ServicioEntity servicioEntity = new ServicioEntity(servicio.nombre, servicio.costo, servicio.descripcion);
+            if (servicio.productos != null) {
+                servicioEntity = new ServicioEntity(servicio.nombre, servicio.costo, servicio.descripcion, servicio.productos);
+            
+            } else {
+                servicioEntity = new ServicioEntity(servicio.nombre, servicio.costo, servicio.descripcion);
+
+            }
             servicios.add(servicioEntity);
         }
 
