@@ -50,7 +50,7 @@ public class ServicioService {
         ServicioEntity servicioEntity ;
         for (Servicio servicio : Servicio.values()) {
             if (servicio.productos != null) {
-                servicioEntity = new ServicioEntity(servicio.nombre, servicio.costo, servicio.descripcion, servicio.productos);
+                servicioEntity = new ServicioEntity(servicio.nombre, servicio.descripcion, servicio.productos);
             
             } else {
                 servicioEntity = new ServicioEntity(servicio.nombre, servicio.costo, servicio.descripcion);
