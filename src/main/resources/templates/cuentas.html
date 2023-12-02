@@ -29,6 +29,7 @@
                             <th>CheckIn</th>
                             <th>CheckOut</th>
                             <th>Conusmos</th>
+                            <th>Editar</th>
                         </tr>
                     </thead>
                     <th:block th:each="cuen : ${cuentas}">
@@ -37,8 +38,10 @@
                             <td th:text="${cuen.checkIn}"></td>
                             <td th:text="${cuen.checkOut}"></td>
                             <td>
-                                <a th:href="@{clientes}" class="btn btn-primary">Consumos
-                                </a>
+                                <a th:href="@{clientes}" class="btn btn-primary">Consumos</a>
+                            </td>
+                            <td>
+                                <a th:href="@{{id}/edit/{id2}(id=${id} ,id2=${cuen.id})}" class="btn btn-primary">Editar</a>
                             </td>
                         </tr>
                     </th:block>
