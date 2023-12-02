@@ -20,7 +20,7 @@ public class ServicioEntity {
     @Indexed(unique = true)
     private String nombre;
 
-    private double costo;
+    private Double costo;
     private String descripcion;
 
     private List<Producto> productos;    
@@ -31,6 +31,11 @@ public class ServicioEntity {
         this.nombre = nombre;
         this.costo = costo;
         this.descripcion = descripcion;
+    }
+    public ServicioEntity(String nombre, String descripcion, List<Producto> productos) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.productos = productos;
     }
     
 }
