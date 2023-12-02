@@ -16,9 +16,9 @@ public class ClienteEntity {
     private String id;
 
     private String nombre;
-    private List<CuentaEntity> cuentas;
+    private List<String> cuentas;
 
-    public ClienteEntity( String nombre , List<CuentaEntity> cuentas) {
+    public ClienteEntity( String nombre , List<String> cuentas) {
         
         this.nombre = nombre;
         this.cuentas = cuentas;

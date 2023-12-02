@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.uniandes.hotelandes.repositories.ClienteRepository;
+import edu.uniandes.hotelandes.repositories.CuentaRepository;
 import edu.uniandes.hotelandes.services.ClienteService;
 
 @Controller
@@ -19,6 +20,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private CuentaRepository cuentaRepository;
     
     @GetMapping
     public String index(Model model){
@@ -35,6 +39,7 @@ public class ClienteController {
     @GetMapping(value = "/delete")
     public String deleteAll(){
         clienteRepository.deleteAll();
+        cuentaRepository.deleteAll();
         return "redirect:/clientes";
     }
 

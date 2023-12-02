@@ -35,8 +35,7 @@
                             <td th:text="${cli.id}"></td>
                             <td th:text="${cli.nombre}"></td>
                             <td>
-                                <!--<a th:href="@{clientes/{id}/cuentas(id=${cli.id})}" class="btn btn-primary">Cuentas</a>-->
-                                <a th:href="@{cuentas(id=${cli.id})}" class="btn btn-primary">Cuentas
+                                <a th:href="@{cuentas/{id}(id=${cli.id})}" class="btn btn-primary">Cuentas
                                 </a>
                             </td>
                             
