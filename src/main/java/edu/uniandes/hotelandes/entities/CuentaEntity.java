@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 import lombok.ToString;
 
-@Document(collection="cuentas")
+// @Document(collection="cuentas")
 @ToString
 @Data
 public class CuentaEntity {
@@ -22,6 +22,9 @@ public class CuentaEntity {
     private Date checkIn;
     private Date checkOut;
     private List<ConsumoEntity> consumos;
+
+    public CuentaEntity(){
+    }
 
     public CuentaEntity( String idHabitacion , Date checkIn , Date checkOut, List<ConsumoEntity> consumos) {
 

@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
+import com.github.javafaker.Faker;
+
 import edu.uniandes.hotelandes.entities.ClienteEntity;
 import edu.uniandes.hotelandes.entities.CuentaEntity;
+import edu.uniandes.hotelandes.repositories.ClienteRepository;
 import edu.uniandes.hotelandes.repositories.CuentaRepository;
 
 @Service
@@ -23,33 +26,38 @@ public class ClienteService {
     @Autowired
     private CuentaRepository cuentaRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    Faker faker = new Faker();
+
     public void insertDocumentWithoutId(ClienteEntity document) {
         mongoTemplate.insert(document);
     }
 
     public void insertDummies(){
 
-        cuentaService.insertDummies();
+        // cuentaService.insertDummies();
 
-        List<CuentaEntity> cuentas = cuentaRepository.findAll();
-        List<String> cuentasIds = new ArrayList<String>();
+        int cantUsuarios = 10;
 
-        for (CuentaEntity cuenta : cuentas) {
-            cuentasIds.add(cuenta.getId());
+        ArrayList<ClienteEntity> clientes = new ArrayList<ClienteEntity>();
+
+        for (int i = 0; i < cantUsuarios; i++){
+            String nombre = faker.name().fullName();
+            String email = faker.internet().emailAddress();
+            String identificacion = faker.idNumber().ssnValid();
+            ClienteEntity clienteEntity = new ClienteEntity(nombre, email, identificacion);
+            
+            // Añadir cuenta dummy
+            CuentaEntity cuentaEntity = new CuentaEntity();
+            cuentaEntity.setIdHabitacion("10000");
+            clienteEntity.setCuentas(new ArrayList<CuentaEntity>(Arrays.asList(cuentaEntity)));
+
+            clientes.add(clienteEntity);
         }
 
-        ArrayList<ClienteEntity> clientes = new ArrayList<ClienteEntity>(
-            Arrays.asList(
-                new ClienteEntity( "Juan", cuentasIds),
-                new ClienteEntity( "Pedro", cuentasIds),
-                new ClienteEntity( "Maria", cuentasIds),
-                new ClienteEntity( "Jose", cuentasIds),
-                new ClienteEntity( "Luis", cuentasIds),
-                new ClienteEntity( "Andres", cuentasIds)
-            )
-        );
-
-        mongoTemplate.insertAll(clientes);
+        this.clienteRepository.insert(clientes);
 
     }
 }

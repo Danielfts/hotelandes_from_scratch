@@ -25,22 +25,27 @@
                 <table class="table table-hover table-bordered m-4" style="width: 50%;">
                     <thead class="thead-dark">
                         <tr>
-                            <th>ID</th>
+                            <th>ObjectId</th>
                             <th>Nombre</th>
+                            <th>Id</th>
+                            <th>Email</th>
                             <th>Cuentas</th>
+                            <th>Control</th>
                         </tr>
                     </thead>
                     <th:block th:each="cli : ${clientes}">
                         <tr>
-                            <td th:text="${cli.id}"></td>
+                            <td style=" word-wrap: break-word; max-width: 8em; font-size: small; color: grey;" th:text="${cli.id}"></td>
                             <td th:text="${cli.nombre}"></td>
+                            <td style=" word-wrap: break-word; min-width: 8em; max-width: 10em; font-size: small; color: grey;" th:text="${cli.identificacion}"></td>
+                            <td th:text="${cli.email}"></td>
                             <td>
                                 <a th:href="@{cuentas/{id}(id=${cli.id})}" class="btn btn-primary">Cuentas
                                 </a>
                             </td>
                             
                             <td>
-                                <a th:href="@{clientes/{id}/delete(id=${cli.id})}"
+                                <a class="btn btn-danger px-1 py-0"  th:href="@{clientes/{id}/delete(id=${cli.id})}"
                                     onclick="return confirm('¿Estás seguro de borrar este cliente?')">Borrar</a>
                             </td>
                         </tr>

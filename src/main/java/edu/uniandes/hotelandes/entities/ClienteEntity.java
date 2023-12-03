@@ -16,12 +16,20 @@ public class ClienteEntity {
     private String id;
 
     private String nombre;
-    private List<String> cuentas;
+    private String email;
+    private String identificacion;
+    
+    private List<CuentaEntity> cuentas;
 
-    public ClienteEntity( String nombre , List<String> cuentas) {
+    public ClienteEntity(){
+    }
+
+    public ClienteEntity( String nombre, String email, String identificacion) {
         
         this.nombre = nombre;
-        this.cuentas = cuentas;
+        this.email = email;
+        this.identificacion = identificacion;
+
     }
     
 }
