@@ -79,6 +79,19 @@ public class ServiciosController {
         return "redirect:/servicios";
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable String id){
+        ServicioEntity servicio = this.servicioService.getOne(id);
+        HasProduct hasProducts = new HasProduct();
+        if (servicio.getProductos() != null){
+            hasProducts.setHasProducts(true);
+        }
+        model.addAttribute("id", id);
+        model.addAttribute("servicio", servicio);
+        model.addAttribute("hasProducts", hasProducts);
+        return "editServicio";
+    }
+
     @GetMapping("/{id}/productos")
     public String indexProducts(Model model, @PathVariable String id){
         ServicioEntity servicio = this.servicioService.getOne(id);
