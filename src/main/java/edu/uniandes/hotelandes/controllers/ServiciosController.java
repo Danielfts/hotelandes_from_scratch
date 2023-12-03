@@ -92,6 +92,17 @@ public class ServiciosController {
         return "editServicio";
     }
 
+    @PostMapping("/{id}/edit/save")
+    public String editSave(@PathVariable String id, @ModelAttribute ServicioEntity servicio, @ModelAttribute HasProduct hasProducts){
+        ServicioEntity currentServicio = this.servicioService.getOne(id);
+        if (currentServicio.getProductos() != null){
+            servicio.setProductos(currentServicio.getProductos());
+            servicio.setCosto(null);
+        }
+        this.servicioService.update(servicio);
+        return "redirect:/servicios";
+    }
+
     @GetMapping("/{id}/productos")
     public String indexProducts(Model model, @PathVariable String id){
         ServicioEntity servicio = this.servicioService.getOne(id);

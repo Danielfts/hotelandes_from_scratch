@@ -25,18 +25,45 @@ public class ServicioService {
     @Autowired 
     private ServicioRepository servicioRepository;
 
+    private void validateServicio(ServicioEntity servicioEntity) throws IllegalArgumentException {
+        if (servicioEntity.getCosto() != null && servicioEntity.getCosto() < 0) {
+            throw new IllegalArgumentException(ErrorMessages.NEGATIVECOST.message);
+        }
+    }
+
     public ServicioEntity create(ServicioEntity servicioEntity) {
-        ServicioEntity savedServicio;
         try {
-            savedServicio = this.servicioRepository.insert(servicioEntity);
+            validateServicio(servicioEntity);
+        } catch (IllegalArgumentException e) {
+            log.error(e.getMessage());
+            return servicioEntity;
+        }
+        ServicioEntity insertedServicio;
+        try {
+            insertedServicio = this.servicioRepository.insert(servicioEntity);
         } catch (DuplicateKeyException e) {
             log.error(ErrorMessages.DUPLICATEKEY.message);
             return servicioEntity;
-        }
-        return savedServicio;
+        } 
+        return insertedServicio;
     }
 
-    public void update() {
+    public ServicioEntity update(ServicioEntity servicioEntity) {
+        try {
+            validateServicio(servicioEntity);
+        } catch (IllegalArgumentException e) {
+            log.error(e.getMessage());
+            return servicioEntity;
+        }
+        ServicioEntity savedServicio;
+        try {
+            savedServicio = this.servicioRepository.save(servicioEntity);
+        } catch (DuplicateKeyException e) {
+            log.error(ErrorMessages.DUPLICATEKEY.message);
+            return servicioEntity;
+        } 
+        
+        return savedServicio;
     }
 
     public void deleteOne(String id) {
