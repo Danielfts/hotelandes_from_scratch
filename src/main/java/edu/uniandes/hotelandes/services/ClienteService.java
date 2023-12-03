@@ -14,7 +14,9 @@ import edu.uniandes.hotelandes.entities.ClienteEntity;
 import edu.uniandes.hotelandes.entities.CuentaEntity;
 import edu.uniandes.hotelandes.repositories.ClienteRepository;
 import edu.uniandes.hotelandes.repositories.CuentaRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class ClienteService {
     @Autowired
@@ -35,29 +37,46 @@ public class ClienteService {
         mongoTemplate.insert(document);
     }
 
+    public ClienteEntity getOneByIdentificacion(String identificacion){
+        ClienteEntity result =  clienteRepository.findByIdentificacion(identificacion);
+
+        return result;
+
+    }
+
     public void insertDummies(){
 
         // cuentaService.insertDummies();
 
-        int cantUsuarios = 10;
+        int cantUsuarios = 1000;
 
         ArrayList<ClienteEntity> clientes = new ArrayList<ClienteEntity>();
 
+        ClienteEntity me = new ClienteEntity("Daniel Felipe", "d.trivino@uniandes.edu.co", "1001349793");
+        clientes.add(me);
         for (int i = 0; i < cantUsuarios; i++){
             String nombre = faker.name().fullName();
             String email = faker.internet().emailAddress();
-            String identificacion = faker.idNumber().ssnValid();
+            String identificacion = faker.number().digits(10);
             ClienteEntity clienteEntity = new ClienteEntity(nombre, email, identificacion);
             
             // Añadir cuenta dummy
             CuentaEntity cuentaEntity = new CuentaEntity();
-            cuentaEntity.setIdHabitacion("10000");
             clienteEntity.setCuentas(new ArrayList<CuentaEntity>(Arrays.asList(cuentaEntity)));
 
             clientes.add(clienteEntity);
         }
 
-        this.clienteRepository.insert(clientes);
+        for (ClienteEntity clienteEntity : clientes) {
+            // System.out.println(clienteEntity);
+            try {
+                this.clienteRepository.insert(clienteEntity);
+                
+            } catch (Exception e) {
+                log.error("Error al insertar cliente: " + clienteEntity);
+                e.printStackTrace();
+            }
+        }
 
     }
 }

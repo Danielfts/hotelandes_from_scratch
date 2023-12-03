@@ -18,7 +18,7 @@ public class CuentaEntity {
     @Id
     private String id;
     
-    private String idHabitacion;
+    private ReservaEntity reserva;
     private Date checkIn;
     private Date checkOut;
     private List<ConsumoEntity> consumos;
@@ -26,9 +26,8 @@ public class CuentaEntity {
     public CuentaEntity(){
     }
 
-    public CuentaEntity( String idHabitacion , Date checkIn , Date checkOut, List<ConsumoEntity> consumos) {
+    public CuentaEntity( Date checkIn , Date checkOut, List<ConsumoEntity> consumos) {
 
-        this.idHabitacion = idHabitacion;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.consumos = consumos;

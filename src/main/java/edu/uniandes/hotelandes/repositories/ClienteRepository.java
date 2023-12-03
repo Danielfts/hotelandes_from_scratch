@@ -9,6 +9,8 @@ import edu.uniandes.hotelandes.entities.ClienteEntity;
 
 public interface ClienteRepository extends MongoRepository<ClienteEntity, String> {
 
+    @Query("{ 'identificacion' : ?0 }")
+    public ClienteEntity findByIdentificacion(String identificacion);
 
 }
 
