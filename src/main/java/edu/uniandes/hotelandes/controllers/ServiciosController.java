@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.uniandes.hotelandes.entities.Producto;
 import edu.uniandes.hotelandes.entities.ServicioEntity;
 import edu.uniandes.hotelandes.services.ServicioService;
 import lombok.Data;
@@ -106,9 +107,17 @@ public class ServiciosController {
     @GetMapping("/{id}/productos")
     public String indexProducts(Model model, @PathVariable String id){
         ServicioEntity servicio = this.servicioService.getOne(id);
+        Producto producto = new Producto();
         model.addAttribute("servicioId", id);
         model.addAttribute("servicio", servicio);
+        model.addAttribute("newProducto", producto);
         return "productos";
+    }
+
+    @PostMapping("/{id}/productos/add")
+    public String addProduct(@PathVariable String id, @ModelAttribute Producto newProducto){
+        System.out.println(newProducto);
+        return "redirect:/servicios/" + id + "/productos";
     }
 
     
