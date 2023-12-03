@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.uniandes.hotelandes.entities.ServicioEntity;
 import edu.uniandes.hotelandes.services.ServicioService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -50,10 +53,30 @@ public class ServiciosController {
         return "redirect:/servicios";
     }
 
-    @GetMapping("/new")
-    public String create(){
 
+    @Data
+    class HasProduct{
+        boolean hasProducts;
+    }
+
+    @GetMapping("/new")
+    public String create(Model model){
+        HasProduct hasProducts = new HasProduct();
+        model.addAttribute("servicio", new ServicioEntity());
+        model.addAttribute("hasProducts", hasProducts);
         return "newServicio";
+    }
+
+    @PostMapping("/new/save")
+    public String createSave(@ModelAttribute ServicioEntity servicio, @ModelAttribute HasProduct hasProducts){
+        System.out.println(hasProducts);
+        if (hasProducts.hasProducts){
+            servicio.setProductos(new ArrayList<>());
+            servicio.setCosto(null);
+        }
+        ServicioEntity result = this.servicioService.create(servicio);
+        System.out.println(result);
+        return "redirect:/servicios";
     }
 
     @GetMapping("/{id}/productos")

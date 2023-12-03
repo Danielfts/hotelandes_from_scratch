@@ -5,14 +5,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import edu.uniandes.hotelandes.entities.Servicio;
 import edu.uniandes.hotelandes.entities.ServicioEntity;
+import edu.uniandes.hotelandes.errors.ErrorMessages;
 import edu.uniandes.hotelandes.repositories.ServicioRepository;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ServicioService {
 
     @Autowired
@@ -21,7 +25,15 @@ public class ServicioService {
     @Autowired 
     private ServicioRepository servicioRepository;
 
-    public void create() {
+    public ServicioEntity create(ServicioEntity servicioEntity) {
+        ServicioEntity savedServicio;
+        try {
+            savedServicio = this.servicioRepository.insert(servicioEntity);
+        } catch (DuplicateKeyException e) {
+            log.error(ErrorMessages.DUPLICATEKEY.message);
+            return servicioEntity;
+        }
+        return savedServicio;
     }
 
     public void update() {
