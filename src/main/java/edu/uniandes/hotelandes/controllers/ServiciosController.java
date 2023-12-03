@@ -117,6 +117,13 @@ public class ServiciosController {
     @PostMapping("/{id}/productos/add")
     public String addProduct(@PathVariable String id, @ModelAttribute Producto newProducto){
         System.out.println(newProducto);
+        this.servicioService.addProduct(id, newProducto);
+        return "redirect:/servicios/" + id + "/productos";
+    }
+
+    @GetMapping("/{id}/productos/{productoName}/delete")
+    public String deleteProduct(@PathVariable String id, @PathVariable String productoName){
+        this.servicioService.deleteProduct(id, productoName);
         return "redirect:/servicios/" + id + "/productos";
     }
 

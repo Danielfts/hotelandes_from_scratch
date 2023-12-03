@@ -31,6 +31,7 @@
             <tr>
               <th>Nombre</th>
               <th>Costo</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
           <th:block th:each="producto : ${servicio.productos}">
@@ -38,6 +39,8 @@
 
               <td th:text="${producto.nombre}"></td>
               <td th:text="${producto.costo}"></td>
+              <td><a class="btn btn-danger px-1 py-0" th:href="@{productos/{productoName}/delete(productoName=${producto.nombre})}"
+                  onclick="return confirm('¿Estás seguro de borrar este producto?')">Borrar</a></td>
 
             </tr>
           </th:block>
@@ -51,10 +54,12 @@
           <h2 class="pt-4">Añadir un producto</h2>
           <form th:action="@{'/servicios/' + ${id} + '/productos/add'}" method="post">
             <label for="nombre" class="col-form-label">Nombre:</label>
-            <input class="form-control" type="text" id="nombre" name="nombre" required th:value="${newProducto.nombre}" />
+            <input class="form-control" type="text" id="nombre" name="nombre" required
+              th:value="${newProducto.nombre}" />
             <br>
             <label for="costo" class="col-form-label">Costo:</label>
-            <input class="form-control" type="number" min="0" oninput="validity.valid||(value='');" id="costo" name="costo" required th:value="${newProducto.costo}" />
+            <input class="form-control" type="number" min="0" oninput="validity.valid||(value='');" id="costo"
+              name="costo" required th:value="${newProducto.costo}" />
             <br>
             <input type="submit" value="Añadir" class="btn btn-success">
           </form>

@@ -9,6 +9,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
+import edu.uniandes.hotelandes.entities.Producto;
 import edu.uniandes.hotelandes.entities.Servicio;
 import edu.uniandes.hotelandes.entities.ServicioEntity;
 import edu.uniandes.hotelandes.errors.ErrorMessages;
@@ -100,6 +101,16 @@ public class ServicioService {
 
         this.servicioRepository.insert(servicios);
         
+    }
+
+    public void addProduct(String id, Producto producto){
+        ServicioEntity servicio = this.servicioRepository.findById(id).get();
+        servicio.getProductos().add(producto);
+        this.servicioRepository.save(servicio);
+    }
+
+    public void deleteProduct(String id, String producto){
+        this.servicioRepository.eliminarProducto(id, producto);
     }
     
 }
