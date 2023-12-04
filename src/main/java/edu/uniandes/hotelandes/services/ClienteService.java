@@ -44,6 +44,10 @@ public class ClienteService {
 
     }
 
+    public List<ClienteEntity> findAll(){
+        return clienteRepository.findAll();
+    }
+
     public void insertDummies(){
 
         // cuentaService.insertDummies();

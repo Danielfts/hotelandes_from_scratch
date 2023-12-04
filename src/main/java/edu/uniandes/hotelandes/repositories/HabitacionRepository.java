@@ -13,5 +13,8 @@ public interface HabitacionRepository extends MongoRepository<HabitacionEntity, 
     
     @Query(value = "{}", fields = "{ 'tipoHabitacion': 1 }")
     List<TipoHabitacionEntity> findAllTypes();
+
+    @Query(value = "{'tipoHabitacion.tipo':?0}")
+    List<HabitacionEntity> findAllByType(String tipo);
     
 }

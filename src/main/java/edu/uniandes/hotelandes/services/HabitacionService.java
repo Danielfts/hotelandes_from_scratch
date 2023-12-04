@@ -16,6 +16,8 @@ import edu.uniandes.hotelandes.entities.HabitacionEntity;
 import edu.uniandes.hotelandes.entities.TipoHabitacion;
 import edu.uniandes.hotelandes.entities.TipoHabitacionEntity;
 import edu.uniandes.hotelandes.errors.ErrorMessages;
+import edu.uniandes.hotelandes.repositories.HabitacionRepository;
+import edu.uniandes.hotelandes.repositories.ReservaRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,6 +25,12 @@ import lombok.extern.slf4j.Slf4j;
 public class HabitacionService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
+
+	@Autowired
+	private HabitacionRepository habitacionRepository;
+
+	@Autowired
+	private ReservaRepository reservaRepository;
 
 	public boolean validateDocument(HabitacionEntity document) throws IllegalArgumentException{
 		String error;
@@ -111,6 +119,8 @@ public class HabitacionService {
 		ArrayList<TipoHabitacionEntity> tiposHabitacion = new ArrayList<TipoHabitacionEntity>(Arrays.asList(
 				new TipoHabitacionEntity(100.00, TipoHabitacion.SENCILLA.capacidad, TipoHabitacion.SENCILLA,
 						"Una habitacion básica pero bonita"),
+				new TipoHabitacionEntity(200.00, TipoHabitacion.SUITE.capacidad, TipoHabitacion.SUITE,
+						"Una suite chévere"),
 				new TipoHabitacionEntity(200.00, TipoHabitacion.DOBLE.capacidad, TipoHabitacion.DOBLE,
 						"Esta habitación sencilla ofrece una cama cómoda, un escritorio de trabajo y un baño privado. Ideal para viajeros solitarios."),
 				new TipoHabitacionEntity(300.00, TipoHabitacion.TRIPLE.capacidad, TipoHabitacion.TRIPLE,
@@ -124,14 +134,14 @@ public class HabitacionService {
 				new TipoHabitacionEntity(700.00, TipoHabitacion.SEMISUITE.capacidad, TipoHabitacion.SEMISUITE,
 						"Una habitacion mela")));
 
-		ArrayList<HabitacionEntity> habitaciones = new ArrayList<HabitacionEntity>(
-				Arrays.asList(
-						new HabitacionEntity("102", tiposHabitacion.get(0)),
-						new HabitacionEntity("103", tiposHabitacion.get(1)),
-						new HabitacionEntity("104", tiposHabitacion.get(2)),
-						new HabitacionEntity("105", tiposHabitacion.get(3)),
-						new HabitacionEntity("106", tiposHabitacion.get(4)),
-						new HabitacionEntity("107", tiposHabitacion.get(5))));
+		ArrayList<HabitacionEntity> habitaciones = new ArrayList<HabitacionEntity>();
+
+		for (int i = 1; i <= 200; i++) {
+			HabitacionEntity habitacion = new HabitacionEntity();
+			habitacion.setNumero(String.valueOf(i));
+			habitacion.setTipoHabitacion(tiposHabitacion.get(i % tiposHabitacion.size()));
+			habitaciones.add(habitacion);
+		}
 
 		try {
 			mongoTemplate.insertAll(habitaciones);
@@ -141,5 +151,20 @@ public class HabitacionService {
 		catch (Exception e) {
 			log.error("Error inserting dummies", e.getClass().getCanonicalName());
 		}
+	}
+
+	public List<HabitacionEntity> findAll(){
+		return this.habitacionRepository.findAll();
+		 
+	}
+
+	public List<HabitacionEntity> findAllByTypeAvailable(String tipo, String desde, String hasta){
+		this.reservaRepository.findAll();
+		return this.habitacionRepository.findAllByType(tipo);
+	}
+	
+	public List<HabitacionEntity> findAllAvailable(String desde, String hasta){
+		this.reservaRepository.findAll();
+		return this.habitacionRepository.findAll();
 	}
 }
