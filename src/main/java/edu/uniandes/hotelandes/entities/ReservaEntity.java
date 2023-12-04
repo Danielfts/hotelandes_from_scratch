@@ -28,6 +28,7 @@ public class ReservaEntity {
     private List<String> idsClientes;
     private Double costoTotal;
     private ArrayList<Huesped> huespedes;
+    private TipoHabitacionEntity tipoHabitacion;
 
     public ReservaEntity() {
     }

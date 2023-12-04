@@ -128,6 +128,8 @@ public class ReservasController {
     @GetMapping("/{id}/huespedes")
     public String huespedes(@PathVariable String id, Model model){
         ReservaEntity reservaEntity = this.reservaRepository.findById(id).get();
+        // ArrayList<ReservaEntity> overlaps = this.reservaService.findOverlapping(reservaEntity.getFechaInicio(), reservaEntity.getFechaFin(), reservaEntity.getNumeroHabitacion(), reservaEntity.getId());
+        // System.out.println(overlaps);
         ArrayList<Huesped> huespedes = reservaEntity.getHuespedes();
         model.addAttribute("id", id);
         model.addAttribute("huespedes", huespedes);
